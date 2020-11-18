@@ -10,26 +10,31 @@
     justify-content: space-between;
     flex-direction: row;
     padding: 10px 30px 10px;
-    background-color: chartreuse;
+    background-color: #57abcc;
     flex:1;
 }
 .main__content{
     display: flex;
-    background-color: brown;
+    background-color: #84CEEB;
     flex:8;
     flex-direction: column;
+    padding: 10px 20px 10px;
 }
 .main__footer{
     display: flex;
-    background-color: chartreuse;
+    background-color: #57abcc;
     flex:1;
     justify-content: space-between;
     padding: 10px 25% 10px
 }
 .main__contentPhotoButton{
-    border: 3px white solid;
-    border-radius: 25px;
+    /* border: 3px white solid;
+    border-radius: 25px; */
     margin: auto;
     margin-bottom: 20px;
     padding:2px 15px 2px;
+}
+
+.main__headerCounter{
+    margin-top:4%
 }

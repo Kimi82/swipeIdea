@@ -3,3 +3,11 @@
     width: 25%;
     height: 400px;
 }
+.yourIdeas__buttons{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px 0px
+}
+.yourIdeas__header{
+    text-align: center;
+}

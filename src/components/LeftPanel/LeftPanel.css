@@ -3,3 +3,10 @@
     width: 25%;
     height: 400px;
 }
+.menu__header{
+    text-align: center;
+}
+
+.menu__ideaItem{
+    text-decoration: none; 
+}
