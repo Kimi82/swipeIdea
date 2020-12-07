@@ -1,6 +1,6 @@
 import React from 'react'
 import './Main.css';
-import { MinusCircle, PlusCircle, Chats, SkipForward, Image } from "phosphor-react";
+import { MinusCircle, PlusCircle, SkipForward, Image } from "phosphor-react";
 
 export default function Main() {
     return (
@@ -16,7 +16,6 @@ export default function Main() {
              <div className="main__contentPhotoButton"><Image size={52} color="white" weight="fill"/></div>
              </div>
             <div className="main__footer">
-                <Chats size={48} color="white" weight="fill" />   
                 <PlusCircle size={48} color="white" weight="fill" />
                 <MinusCircle size={48} color="white" weight="fill" />
                 <SkipForward size={48} color="white" weight="fill" />

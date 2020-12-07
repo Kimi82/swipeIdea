@@ -13,3 +13,19 @@
   text-align: center;
   height: 20%;
 }
+.app__headerRight{
+  background-color: #84CEEB;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+}
+.app__headerRegister{
+  margin: 15px;
+
+}
+.app_headerTitle{
+  margin-top:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

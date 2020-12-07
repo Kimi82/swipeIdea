@@ -11,3 +11,13 @@
 .yourIdeas__header{
     text-align: center;
 }
+
+.yourIdeas__loading{
+    display: flex;
+    justify-content: space-between;
+    margin: 0px 20px 0px;
+    background-color: #5AB9EA;
+    width: 25%;
+    height: 400px;
+    text-align: center;
+}
