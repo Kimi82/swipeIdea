@@ -157,7 +157,7 @@ function App() {
       <LeftPanel/>
       <Main/>
       { user ?
-      <YourIdeas user={user} className="yourIdeas__loading"/>
+      <YourIdeas user={user}/>
       :
       <CircularProgress />
       }

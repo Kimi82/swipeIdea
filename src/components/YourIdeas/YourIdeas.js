@@ -56,7 +56,7 @@ export default function YourIdeas( {user} ) {
              ideaDescription,
              ideaImageURL,
              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-             isDone: false })
+             })
 
           setAddFormValidation(false)
           setOpen(false)
@@ -72,17 +72,24 @@ export default function YourIdeas( {user} ) {
       const getYourIdeas = async () =>{
         
         if(user?.displayName !== "undefined" && user){
-        let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).orderBy("timestamp").get(); 
-        setYourIdeas(yourIdeas.docs.map( idea => ({
-         ...idea.data() 
-        })))
+        let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
+        
+         setYourIdeas(yourIdeas.docs.map( idea => ({
+          ...idea.data() 
+         })))
       }
-      } 
+      }
+       
       getYourIdeas()
     }, [open])
-    console.log(yourIdeas)
-
-
+    
+    function convertTime(time){
+      var ideaDate = new Date(time); 
+      ideaDate.toLocaleString();
+      var time = ideaDate.toISOString().substring(0, 10);
+      return time;
+    }
+    
     return (
         <div className="yourideas__wrapper">
             <div className="yourIdeas__header">
@@ -90,28 +97,40 @@ export default function YourIdeas( {user} ) {
                 <PlusCircle size={32} color="white" weight="fill" onClick={() => setOpen(true)} />
                 </div>
             <div className="yourIdeas__buttons">
-                <h3>name of idea</h3>
-                <h3>created date</h3>
+            <div className="yourideas__listWrapper">
+              {yourIdeas.map((idea) =>
+                  
+                  <p className="yourIdeas__listItem" id={idea.id}>
+                      <h3>{idea.ideaName}</h3>
+                      <h3>{convertTime(idea.timestamp.seconds*1000)}</h3> 
+                  </p>
+                  
+                )}
+                </div> 
+                
+
+                
+                
                 <Modal
     open={open}
     onClose={() => setOpen(false)}>
     { addFormValidation?
     <form>
       <div style={modalStyle} className={classes.paper}>  
-      <TextField label="Name of the idea"  value={ideaName} onChange={(e) => setIdeaName(e.target.value)} 
-      error  helperText="This field can't be empty" />
-      <TextField label="URL to image" value={ideaImageURL} onChange={(e) => setIdeaImageURL(e.target.value)} />
-      <TextField label="Description" fullWidth multiline value={ideaDescription} onChange={(e) => setIdeaDescription(e.target.value)}
-      error  helperText="This field can't be empty" />
-      <Button type='submit' onClick={addIdea} className={classes.button}>Add an idea!</Button>
+        <TextField label="Name of the idea"  value={ideaName} onChange={(e) => setIdeaName(e.target.value)} 
+        error  helperText="This field can't be empty" />
+        <TextField label="URL to image" value={ideaImageURL} onChange={(e) => setIdeaImageURL(e.target.value)} />
+        <TextField label="Description" fullWidth multiline value={ideaDescription} onChange={(e) => setIdeaDescription(e.target.value)}
+        error  helperText="This field can't be empty" />
+        <Button type='submit' onClick={addIdea} className={classes.button}>Add an idea!</Button>
       </div>
     </form>
      : //default
      <form> 
      <div style={modalStyle} className={classes.paper}>  
-     <TextField label="Name of the idea"  value={ideaName} onChange={(e) => setIdeaName(e.target.value)} />
-     <TextField label="URL to image" value={ideaImageURL} onChange={(e) => setIdeaImageURL(e.target.value)} />
-     <TextField label="Description" fullWidth multiline value={ideaDescription} onChange={(e) => setIdeaDescription(e.target.value)} />
+      <TextField label="Name of the idea"  value={ideaName} onChange={(e) => setIdeaName(e.target.value)} />
+      <TextField label="URL to image" value={ideaImageURL} onChange={(e) => setIdeaImageURL(e.target.value)} />
+      <TextField label="Description" fullWidth multiline value={ideaDescription} onChange={(e) => setIdeaDescription(e.target.value)} />
      <Button type='submit' onClick={addIdea} variant="contained" color="primary" className={classes.button}>Add an idea!</Button>
      </div>
      </form> 
@@ -119,7 +138,7 @@ export default function YourIdeas( {user} ) {
 
   </Modal> 
 
-            </div>
+        </div>
         </div>
     )
 }
