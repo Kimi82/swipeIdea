@@ -73,20 +73,25 @@ export default function YourIdeas( {user} ) {
         
         if(user?.displayName !== "undefined" && user){
         let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
-        
-         setYourIdeas(yourIdeas.docs.map( idea => ({
-          ...idea.data() 
+
+          setYourIdeas(yourIdeas.docs.map( idea => ({
+          ...idea.data(),
+           convertTime: convertTime(idea.data()?.timestamp?.seconds*1000)
          })))
+         
       }
       }
        
       getYourIdeas()
-    }, [open])
-    
+    }, [yourIdeas])
+
+
     function convertTime(time){
+      try{
       var ideaDate = new Date(time); 
       ideaDate.toLocaleString();
       var time = ideaDate.toISOString().substring(0, 10);
+      }catch(error){console.log(error)}
       return time;
     }
     
@@ -102,7 +107,7 @@ export default function YourIdeas( {user} ) {
                   
                   <p className="yourIdeas__listItem" id={idea.id}>
                       <h3>{idea.ideaName}</h3>
-                      <h3>{convertTime(idea.timestamp.seconds*1000)}</h3> 
+                      <h3>{convertTime(idea?.timestamp?.seconds*1000)}</h3> 
                   </p>
                   
                 )}
