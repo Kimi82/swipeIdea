@@ -105,7 +105,7 @@ export default function YourIdeas( {user} ) {
             <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea.id}>
+                  <p className="yourIdeas__listItem" id={idea.id} key={idea.id}>
                       <h3>{idea.ideaName}</h3>
                       <h3>{convertTime(idea?.timestamp?.seconds*1000)}</h3> 
                   </p>
