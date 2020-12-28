@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './Main.css';
-import { MinusCircle, PlusCircle, SkipForward, Image } from "phosphor-react";
+import { MinusCircle, PlusCircle, SkipForward, CameraSlash } from "phosphor-react";
 import { db } from '../../firebase.js'
 import firebase from "firebase"
 import Ideas from '../Ideas/Ideas.js'
@@ -46,7 +46,14 @@ const [randomIdea, setRandomIdea] = useState({})
                 <h4 className="main__headerCounter">counter</h4>  
             </div>
              <div className="main__content">{randomIdea?.ideaDescription}
-             <div className="main__contentPhotoButton"><Image size={52} color="white" weight="fill"/></div>
+             <div className="main__contentPhotoButton">
+             {randomIdea.ideaImageURL.length >= 8 ?
+             <img src={randomIdea.ideaImageURL} alt="new"/>
+             :
+             <CameraSlash size={52} color="white" weight="fill" />
+             }
+             </div> 
+             {/* <Image size={52} color="white" weight="fill"/> */}
              </div>
             <div className="main__footer">
                 <PlusCircle size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}} />
