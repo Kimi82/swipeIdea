@@ -35,7 +35,6 @@ const [randomIdea, setRandomIdea] = useState({})
     }, [done])
     
 
-
     return (
         <div className="main__wrapper">
             <div className="main__header">
@@ -47,13 +46,12 @@ const [randomIdea, setRandomIdea] = useState({})
             </div>
              <div className="main__content">{randomIdea?.ideaDescription}
              <div className="main__contentPhotoButton">
-             {randomIdea.ideaImageURL.length >= 8 ?
-             <img src={randomIdea.ideaImageURL} alt="new"/>
+             {randomIdea?.ideaImageURL && randomIdea?.ideaImageURL !== "undefined" ?
+             <img src={randomIdea?.ideaImageURL} alt="new"/>
              :
              <CameraSlash size={52} color="white" weight="fill" />
              }
              </div> 
-             {/* <Image size={52} color="white" weight="fill"/> */}
              </div>
             <div className="main__footer">
                 <PlusCircle size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}} />

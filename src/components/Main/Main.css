@@ -1,7 +1,7 @@
 .main__wrapper{
     background-color: #5680E9;
     width: 50%;
-    height: 400px;
+    height: 90vh;
     display: flex;
     flex-direction: column;
 }
