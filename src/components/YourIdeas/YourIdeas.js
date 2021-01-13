@@ -72,17 +72,21 @@ export default function YourIdeas( {user} ) {
       useEffect(() => {
         const getYourIdeas = async () =>{
           
-          if(user?.displayName !== "undefined" && user){
-          let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
+          if(user?.displayName !== "undefined" && user ){
+          // let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
   
-            setYourIdeas(yourIdeas.docs.map( idea => ({
-            ...idea.data(),
-             convertTime: convertTime(idea.data()?.timestamp?.seconds*1000)
-           })))
-           
+          //   setYourIdeas(yourIdeas.docs.map( idea => ({
+          //   ...idea.data(),
+          //    convertTime: convertTime(idea.data()?.timestamp?.seconds*1000)
+          //  })))
+          const unsubcribe = await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
+            const helperArray = [];
+            snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000)}))
+            setYourIdeas(helperArray)
+          })
         }
         }
-        console.log("no no") 
+        console.log("I just downloaded your ideas") 
         getYourIdeas()
       }, [])
 
@@ -103,20 +107,17 @@ export default function YourIdeas( {user} ) {
                 <PlusCircle size={32} color="white" weight="fill" onClick={() => setOpen(true)} />
                 </div>
             <div className="yourIdeas__buttons">
-            <div className="yourideas__listWrapper">
+            {/* <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea.id} key={idea.id}>
-                      <h3>{idea.ideaName}</h3>
-                      <h3>{idea.convertTime}</h3>
+                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id}>
+                      <h3>{idea?.ideaName}</h3>
+                      <h3>{idea?.convertTime}</h3>
                   </p>
                   
                 )}
                 </div> 
-                
-
-                
-                
+               */}
                 <Modal
     open={open}
     onClose={() => setOpen(false)}>
