@@ -68,24 +68,25 @@ export default function YourIdeas( {user} ) {
     
       }
 
-    useEffect(() => {
-      const getYourIdeas = async () =>{
-        
-        if(user?.displayName !== "undefined" && user){
-        let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
+    
+      useEffect(() => {
+        const getYourIdeas = async () =>{
+          
+          if(user?.displayName !== "undefined" && user){
+          let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
+  
+            setYourIdeas(yourIdeas.docs.map( idea => ({
+            ...idea.data(),
+             convertTime: convertTime(idea.data()?.timestamp?.seconds*1000)
+           })))
+           
+        }
+        }
+        console.log("no no") 
+        getYourIdeas()
+      }, [])
 
-          setYourIdeas(yourIdeas.docs.map( idea => ({
-          ...idea.data(),
-           convertTime: convertTime(idea.data()?.timestamp?.seconds*1000)
-         })))
-         
-      }
-      }
-       
-      getYourIdeas()
-    }, [yourIdeas])
-
-
+    
     function convertTime(time){
       try{
       var ideaDate = new Date(time); 
@@ -107,7 +108,7 @@ export default function YourIdeas( {user} ) {
                   
                   <p className="yourIdeas__listItem" id={idea.id} key={idea.id}>
                       <h3>{idea.ideaName}</h3>
-                      <h3>{convertTime(idea?.timestamp?.seconds*1000)}</h3> 
+                      <h3>{idea.convertTime}</h3>
                   </p>
                   
                 )}
