@@ -50,7 +50,7 @@ export default function YourIdeas( {user} ) {
         if(ideaName.length<=2 && ideaDescription.length<=10){
           setAddFormValidation(true)
         }else{
-           db.collection("ideas").add({
+          db.collection("ideas").doc(ideaName.replace(/\s/g, '')+user.display).set({
              createdBy: user.displayName,
              ideaName,
              ideaDescription,
@@ -65,7 +65,6 @@ export default function YourIdeas( {user} ) {
           setIdeaImageURL("")          
         }
         
-    
       }
 
     
@@ -73,12 +72,7 @@ export default function YourIdeas( {user} ) {
         const getYourIdeas = async () =>{
           
           if(user?.displayName !== "undefined" && user ){
-          // let yourIdeas = await db.collection("ideas").where("createdBy", "==", user.displayName).get(); 
-  
-          //   setYourIdeas(yourIdeas.docs.map( idea => ({
-          //   ...idea.data(),
-          //    convertTime: convertTime(idea.data()?.timestamp?.seconds*1000)
-          //  })))
+//dodac where zeby nie pobieralo dodanych przez nas
           const unsubcribe = await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
             const helperArray = [];
             snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000)}))
@@ -107,7 +101,7 @@ export default function YourIdeas( {user} ) {
                 <PlusCircle size={32} color="white" weight="fill" onClick={() => setOpen(true)} />
                 </div>
             <div className="yourIdeas__buttons">
-            {/* <div className="yourideas__listWrapper">
+            <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
                   <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id}>
@@ -117,7 +111,7 @@ export default function YourIdeas( {user} ) {
                   
                 )}
                 </div> 
-               */}
+              
                 <Modal
     open={open}
     onClose={() => setOpen(false)}>

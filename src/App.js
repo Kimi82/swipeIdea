@@ -154,8 +154,8 @@ function App() {
         </div>
       </header>
       <div className="app__wrapper">
-      <LeftPanel/>
-      <Main/>
+      <LeftPanel user={user}/>
+      <Main user={user}/>
       { user ?
       <YourIdeas user={user}/>
       :
