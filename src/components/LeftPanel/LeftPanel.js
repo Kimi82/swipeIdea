@@ -8,9 +8,11 @@ import firebase from "firebase"
 export default function LeftPanel({user}) {
 
     const [likeIdea, setLikeIdea] = useState([]);
+    const [done, setDone] = useState(false)
 
     useEffect(()=>{
-        if(user?.displayName !== "undefined" && user ){
+
+
         const getLikedIdea = async () =>{
              await db.collection(user.displayName).doc("additionalInfo").collection("likedIdeas").onSnapshot(snapshot => {
                 const helperArray = [];
@@ -18,11 +20,15 @@ export default function LeftPanel({user}) {
                 setLikeIdea(helperArray)
                 
             })
+            
+            
         }
-
         getLikedIdea();
-}}, [])
+        
 
+}, [])
+
+console.log(likeIdea)
 
     return (
         <div className="menu__wrapper">
@@ -31,10 +37,15 @@ export default function LeftPanel({user}) {
             </div>
             <div className="menu__ideasList">
 
-            {likeIdea.map(idea =>(
-            <h3 className="menu__ideaItem">{idea.ideaName} by: {idea.createdBy}</h3>
-            ))}
+            {/* {likeIdea.length>=1 ? likeIdea.map(idea =>(
+            <h3 key={idea.id} className="menu__ideaItem">{idea.ideaName} by: {idea.createdBy}</h3>
+            )) : <h2>You haven't liked any idea yet </h2>} */}
 
+
+
+            {likeIdea.map(idea =>(
+            <h3 key={idea.id} className="menu__ideaItem">{idea.ideaName} by: {idea.createdBy}</h3>
+            ))}
 
                                 
             </div> 

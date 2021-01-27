@@ -154,7 +154,11 @@ function App() {
         </div>
       </header>
       <div className="app__wrapper">
-      <LeftPanel user={user}/>
+      
+      {user ? <LeftPanel user={user}/>
+      :
+      <CircularProgress/>
+      }
       <Main user={user}/>
       { user ?
       <YourIdeas user={user}/>

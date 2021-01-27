@@ -105,8 +105,8 @@ export default function YourIdeas( {user} ) {
               {yourIdeas.map((idea) =>
                   
                   <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id}>
-                      <h3>{idea?.ideaName}</h3>
-                      <h3>{idea?.convertTime}</h3>
+                      <h3 id={idea?.id + "1"} >{idea?.ideaName}</h3>
+                      <h3 id={idea?.id + "2"}>{idea?.convertTime}</h3>
                   </p>
                   
                 )}
