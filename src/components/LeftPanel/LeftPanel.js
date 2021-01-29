@@ -3,13 +3,13 @@ import './LeftPanel.css'
 import { Chats } from "phosphor-react";
 import { db } from '../../firebase.js'
 import firebase from "firebase"
-
+import Chat from '../Chat/Chat.js'
 
 export default function LeftPanel({user}) {
 
     const [likeIdea, setLikeIdea] = useState([]);
-    const [done, setDone] = useState(false)
-
+    const [showChat, setShowChat] = useState(false)
+    const [ideaToSent, setideaToSent] = useState({})
     useEffect(()=>{
 
 
@@ -28,7 +28,7 @@ export default function LeftPanel({user}) {
 
 }, [])
 
-console.log(likeIdea)
+
 
     return (
         <div className="menu__wrapper">
@@ -44,10 +44,14 @@ console.log(likeIdea)
 
 
             {likeIdea.map(idea =>(
-            <h3 key={idea.id} className="menu__ideaItem">{idea.ideaName} by: {idea.createdBy}</h3>
+            <h3 key={idea.id} className="menu__ideaItem" onClick={() => {
+                setideaToSent(idea)
+                setShowChat(!showChat)
+            }}>{idea.ideaName} by: {idea.createdBy}</h3>
             ))}
 
-                                
+            {showChat ? <Chat idea ={ideaToSent}/> : null}
+                      
             </div> 
         </div>
     )

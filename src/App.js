@@ -10,6 +10,7 @@ import React, {useState ,useEffect, useRef} from 'react';
 
 
 
+
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -154,7 +155,6 @@ function App() {
         </div>
       </header>
       <div className="app__wrapper">
-      
       {user ? <LeftPanel user={user}/>
       :
       <CircularProgress/>
