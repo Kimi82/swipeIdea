@@ -1,21 +1,37 @@
 import React, {useEffect, useState} from 'react'
 import './Chat.css'
-//import { db } from '../../firebase.js'
-//import firebase from "firebase"
+import { db } from '../../firebase.js'
+import firebase from "firebase"
 
 
-export default function Chat({idea}) {
+export default function Chat({idea, user}) {
+    
+    const [messageValue, setMessageValue] = useState('')
 
-    console.log(idea)
+    console.log(messageValue)
+
+    const sendMessage = () =>{
+        
+            db.collection("ideas").doc(idea.id).collection("chatArray").add({
+                createdBy: user,
+                messageValue,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            setMessageValue("")            
+        
+            
+         
+    }
 
     return (
-        <div className='popup'>  
-<div className='popup_inner'>  
-<h1>{idea.ideaName}</h1>
-<h2>text</h2>
-<h3>text</h3>  
-<button>close me</button>  
-</div>  
-</div>  
+    <div className='chat_inner'>  
+    <h1>Chat about: {idea.ideaName} by {idea.createdBy}</h1>
+    <h2>text</h2>
+    <h3>text</h3>  
+    <input className="chat__input" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}/>
+    <button className="chat__button" onClick={sendMessage}>Send</button>  
+    </div>
+
+  
     )
 }

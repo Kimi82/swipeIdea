@@ -38,7 +38,7 @@ const [randomIdea, setRandomIdea] = useState({})
         db.collection(user.displayName).doc("additionalInfo").collection("likedIdeas").doc(randomIdea.id).set({
             ...randomIdea,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-          
+            
         })
         
          setDone(!done)

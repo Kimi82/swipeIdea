@@ -1,20 +1,30 @@
-.popup {  
-    position: fixed;  
-    width: 50%;  
-    height: 90%;  
-    top: 0;  
-    left: 0;  
-    right: 0;  
-    bottom: 0;  
-    margin: auto;  
-     
-  }  
-  .popup_inner {  
+ 
+  .chat_inner {  
     position: absolute;
-    width: 100%;  
-    height: 100%;
-    top:5.4%;    
-    margin: auto;  
-    border-radius: 20px;  
+    display: flex;
+    flex-direction: column;
+    width: 50%;  
+    height:90%;
+    top:9.8%;    
+    left:25%;
     background: red;  
+  }
+
+  .chat__input{
+    width: 80%;
+    top:70%;
+    left:10%;
+    height: 30px;
+    position: relative;
+    border: none; 
+    border-radius: 10px;
+    
+  }
+  .chat__button{
+    width: 10%;
+    top:93.7%;
+    left:81%;
+    height: 32px;
+    position: absolute;
+    border-radius: 10px;
   }

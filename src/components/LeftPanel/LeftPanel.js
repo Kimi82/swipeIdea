@@ -50,7 +50,7 @@ export default function LeftPanel({user}) {
             }}>{idea.ideaName} by: {idea.createdBy}</h3>
             ))}
 
-            {showChat ? <Chat idea ={ideaToSent}/> : null}
+            {showChat ? <Chat idea={ideaToSent} user={user.displayName}/> : null}
                       
             </div> 
         </div>
