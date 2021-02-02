@@ -124,7 +124,7 @@ function App() {
       onChange={(e) => setPassword(e.target.value)} 
     />
     <Button type='submit' onClick={signUp}>Sign Up</Button>
-    </div>
+    </div>f
   </form>
   </Modal> 
 

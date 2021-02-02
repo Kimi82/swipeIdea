@@ -10,17 +10,14 @@ export default function Chat({idea, user}) {
 
     console.log(messageValue)
 
-    const sendMessage = () =>{
+    const sendMessage = () =>{ś
         
-            db.collection("ideas").doc(idea.id).collection("chatArray").add({
+            db.collection("chat").doc(idea.createdBy + idea.id).collection(user).add({
                 createdBy: user,
                 messageValue,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
             setMessageValue("")            
-        
-            
-         
     }
 
     return (
