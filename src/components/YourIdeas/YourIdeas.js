@@ -44,13 +44,15 @@ export default function YourIdeas( {user} ) {
     const [ideaDescription, setIdeaDescription] = useState('')
     const [addFormValidation, setAddFormValidation] = useState(false);
     const [yourIdeas, setYourIdeas] = useState([])
+    const [isDone, setIsDone] = useState(false)
+    const [yourChats, setYourChats] = useState([])
 
       const addIdea = async (e) =>{
         e.preventDefault();
         if(ideaName.length<=2 && ideaDescription.length<=10){
           setAddFormValidation(true)
         }else{
-          db.collection("ideas").doc(ideaName.replace(/\s/g, '')+user.display).set({
+          db.collection("ideas").doc(ideaName.replace(/\s/g, '')+user.displayName).set({
              createdBy: user.displayName,
              ideaName,
              ideaDescription,
@@ -71,19 +73,39 @@ export default function YourIdeas( {user} ) {
       useEffect(() => {
         const getYourIdeas = async () =>{
           
-          if(user?.displayName !== "undefined" && user ){
+          //if(user?.displayName !== "undefined" && user ){
 //dodac where zeby nie pobieralo dodanych przez nas
-          const unsubcribe = await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
-            const helperArray = [];
-            snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000)}))
-            setYourIdeas(helperArray)
+            await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
+              const helperArray = [];
+              snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000)}))
+              setYourIdeas(helperArray)
           })
-        }
+          setIsDone(true)
+        //}
         }
         console.log("I just downloaded your ideas") 
         getYourIdeas()
+
       }, [])
 
+
+      useEffect(() => {
+        const getChat = async () =>{
+            for(let i=0; i<=yourIdeas.length-1; i++){ 
+              await db.collection("chat").doc(user.displayName + yourIdeas[i].ideaName + user.displayName).collection(user.displayName).onSnapshot(snapshot =>{
+              const helperArray = [];
+              snapshot.forEach(doc => helperArray.push({...doc.data()}))
+               setYourChats(helperArray)
+          })
+          if(yourIdeas[i].createdBy+yourIdeas[i].ideaName == yourChats[i].createdBy + yourChats[i].ideaName){
+            console.log("spasowalem")
+          }
+        }console.log(yourChats)}
+        
+         
+        getChat()
+      }, [isDone])
+  
     
     function convertTime(time){
       try{
@@ -93,7 +115,6 @@ export default function YourIdeas( {user} ) {
       }catch(error){console.log(error)}
       return time;
     }
-    
     return (
         <div className="yourideas__wrapper">
             <div className="yourIdeas__header">
