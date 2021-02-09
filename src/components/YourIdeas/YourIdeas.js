@@ -77,7 +77,7 @@ export default function YourIdeas( {user} ) {
 //dodac where zeby nie pobieralo dodanych przez nas
             await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
               const helperArray = [];
-              snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000)}))
+              snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000), chat: []}))
               setYourIdeas(helperArray)
           })
           setIsDone(true)
@@ -95,17 +95,17 @@ export default function YourIdeas( {user} ) {
               await db.collection("chat").doc(user.displayName + yourIdeas[i].ideaName + user.displayName).collection(user.displayName).onSnapshot(snapshot =>{
               const helperArray = [];
               snapshot.forEach(doc => helperArray.push({...doc.data()}))
-               setYourChats(helperArray)
+               //setYourChats(helperArray)
+               yourIdeas[i]["chat"].push(helperArray)
+              console.log(yourIdeas[i])
           })
-          if(yourIdeas[i].createdBy+yourIdeas[i].ideaName == yourChats[i].createdBy + yourChats[i].ideaName){
-            console.log("spasowalem")
-          }
-        }console.log(yourChats)}
+        }}
         
          
         getChat()
       }, [isDone])
-  
+
+ 
     
     function convertTime(time){
       try{
