@@ -5,26 +5,44 @@
     flex-direction: column;
     width: 50%;  
     height:90%;
-    top:9.8%;    
+    top:10%;    
     left:25%;
     background: red;  
   }
 
   .chat__input{
-    width: 80%;
-    top:70%;
-    left:10%;
-    height: 30px;
     position: relative;
+    width: 80%;
+    top:75%;
+    left:10%;
+    height: 30px; 
     border: none; 
     border-radius: 10px;
     
   }
   .chat__button{
+    position: relative;
     width: 10%;
-    top:93.7%;
-    left:81%;
-    height: 32px;
-    position: absolute;
+    top:71.5%;
+    left:80%;
+    height: 30px; 
+    border: none; 
     border-radius: 10px;
+    background-color: lawngreen;
   }
+
+  .chat__messageWrapper{
+  /* display: flex; */
+}
+
+.chat__messageIncome{
+  color: blue;
+  align-self: flex-start;
+  float:left;
+}
+
+.chat__messageOutcome{
+  color:green;
+  align-self: flex-end;
+  float:right;
+}

@@ -97,15 +97,16 @@ export default function YourIdeas( {user} ) {
               snapshot.forEach(doc => helperArray.push({...doc.data()}))
                //setYourChats(helperArray)
                yourIdeas[i]["chat"].push(helperArray)
-              console.log(yourIdeas[i])
+               console.log("poszlo")
+               console.log(yourIdeas[0]["chat"])
           })
-        }}
+          }}
         
          
         getChat()
       }, [isDone])
 
- 
+      
     
     function convertTime(time){
       try{
