@@ -10,8 +10,9 @@ export default function LeftPanel({user}) {
     const [likeIdea, setLikeIdea] = useState([]);
     const [showChat, setShowChat] = useState(false)
     const [ideaToSent, setideaToSent] = useState({})
-    useEffect(()=>{
 
+
+    useEffect(()=>{
 
         const getLikedIdea = async () =>{
              await db.collection(user.displayName).doc("additionalInfo").collection("likedIdeas").onSnapshot(snapshot => {
@@ -27,6 +28,12 @@ export default function LeftPanel({user}) {
         
 
 }, [])
+
+
+
+    
+
+    
 
 
 

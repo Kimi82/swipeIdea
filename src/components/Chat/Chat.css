@@ -1,48 +1,65 @@
- 
+ *{
+   box-sizing: border-box;
+ }
   .chat_inner {  
     position: absolute;
     display: flex;
-    flex-direction: column;
-    width: 50%;  
+    flex-direction: column;  
     height:90%;
     top:10%;    
     left:25%;
-    background: red;  
+    background: red;
+    width: calc(50%);
+    list-style-type: none;
+    max-width: calc(100% - 80px); 
+    word-break: break-all;  
   }
 
+  .chat__inputWrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    
+  }  
   .chat__input{
-    position: relative;
     width: 80%;
-    top:75%;
-    left:10%;
     height: 30px; 
     border: none; 
     border-radius: 10px;
-    
+    text-decoration: none;
+    cursor: pointer;
   }
   .chat__button{
     position: relative;
+    left: -10%;
     width: 10%;
-    top:71.5%;
-    left:80%;
     height: 30px; 
     border: none; 
     border-radius: 10px;
     background-color: lawngreen;
+    text-decoration: none;
+    cursor: pointer;
   }
 
   .chat__messageWrapper{
-  /* display: flex; */
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100%);
 }
 
-.chat__messageIncome{
-  color: blue;
-  align-self: flex-start;
-  float:left;
+.chat__messageIncome, .chat__messageOutcome{
+  margin:15px;
+  width: 15vw;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  word-wrap: break-word;
+  max-width: 50%;
+
 }
 
 .chat__messageOutcome{
-  color:green;
   align-self: flex-end;
-  float:right;
+  background-color: green;
 }
