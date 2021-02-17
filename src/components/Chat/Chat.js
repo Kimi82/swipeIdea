@@ -9,13 +9,14 @@ export default function Chat({idea, user}) {
     const [messageValue, setMessageValue] = useState('')
     const [messages, setMessages] = useState([])
     
-    const sendMessage = () =>{
+    const sendMessage = (e) =>{
             db.collection("chat").doc(idea.createdBy + idea.id).collection(user).add({
                 createdBy: user,
                 messageValue,
                 ideaName: idea.ideaName,
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
+            e.preventDefault();
             setMessageValue("")            
     }
 
@@ -26,6 +27,7 @@ export default function Chat({idea, user}) {
 
         })};
     getMessage();
+    scrollBottom()
     }, [])
     console.log(messages)
 
@@ -38,6 +40,12 @@ export default function Chat({idea, user}) {
     //     getIdeas()
         
     //   }, [])
+
+    const scrollBottom = () => {
+        const wrapperDiv = document.getElementsByClassName("chat__inputWrappere");
+        wrapperDiv.current?.scrollIntoView({ behavior: "smooth" })
+    }
+    
       console.log(user)
     return (
     <div className='chat_inner'>  
@@ -55,10 +63,14 @@ export default function Chat({idea, user}) {
      
      )} 
     </div>
-    <div className="chat__inputWrapper">  
+    <form onSubmit={sendMessage}> 
+    <div className="chat__inputWrapper">
+ 
         <input className="chat__input" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}/>
-        <button className="chat__button" onClick={sendMessage}>Send</button>
-    </div>  
+        <button type="submit" className="chat__button" onClick={sendMessage} >Send</button>
+        
+    </div>
+    </form>  
     </div>
 
   
