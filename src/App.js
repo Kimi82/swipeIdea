@@ -155,6 +155,7 @@ function App() {
         </div>
       </header>
       <div className="app__wrapper">
+      
       {user ? <LeftPanel user={user}/>
       :
       <CircularProgress/>

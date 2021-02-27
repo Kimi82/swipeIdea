@@ -8,7 +8,16 @@
 
 .app__wrapper{
   display: flex;
-  justify-content: space-between;
+}
+
+.menu__wrapper{
+  
+}
+.main__wrapper{
+
+}
+.yourideas__wrapper{
+  
 }
 
 .app__header{

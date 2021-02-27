@@ -17,7 +17,8 @@ export default function Chat({idea, user}) {
                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
             })
             e.preventDefault();
-            setMessageValue("")            
+            setMessageValue("")
+            chatScrollToBottom()            
     }
 
     useEffect(()=>{
@@ -27,7 +28,7 @@ export default function Chat({idea, user}) {
 
         })};
     getMessage();
-    scrollBottom()
+    chatScrollToBottom()
     }, [])
     console.log(messages)
 
@@ -41,17 +42,22 @@ export default function Chat({idea, user}) {
         
     //   }, [])
 
-    const scrollBottom = () => {
-        const wrapperDiv = document.getElementsByClassName("chat__inputWrappere");
-        wrapperDiv.current?.scrollIntoView({ behavior: "smooth" })
-    }
-    
-      console.log(user)
-    return (
-    <div className='chat_inner'>  
-    <h1>Chat about: {idea.ideaName} by {idea.createdBy}</h1>
-    <div className="chat__messageWrapper">
+    useEffect (() => {
+        chatScrollToBottom()
+    }, [messages])
 
+      console.log(user)
+    const chatScrollToBottom = () =>{
+        var element = document.getElementById("chat__messageWrapper");
+        element.scrollTop = element.scrollHeight;
+        console.log('%c SCROLL_BOTTOM ', 'background: #222; color: #bada55');
+    }
+
+    return (
+    <div id='chat_inner'>  
+    <h1>Chat about: {idea.ideaName} by {idea.createdBy}</h1>
+    <div id="chat__messageWrapper">
+        
      {messages && messages.map(msg => 
      
          msg.createdBy==user?

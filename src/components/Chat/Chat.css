@@ -1,15 +1,16 @@
  *{
    box-sizing: border-box;
  }
-  .chat_inner {  
+  #chat_inner {  
     position: absolute;
     display: flex;
     flex-direction: column;  
-    height:90vh;
-    top:10%;     
+    height:91%;
+    top:9%;     
     left:25%;
     background: red;
     width: 50%;
+    border-radius: 25px;
 }
 
   .chat__inputWrapper{
@@ -27,6 +28,7 @@
     border-radius: 10px;
     text-decoration: none;
     cursor: pointer;
+    
   }
   .chat__button{
     position: relative;
@@ -40,7 +42,7 @@
     cursor: pointer;
   }
 
-  .chat__messageWrapper{
+ #chat__messageWrapper{
     display: flex;
     flex-direction: column;
     max-height: 100%;
@@ -63,4 +65,17 @@
 .chat__messageOutcome{
   align-self: flex-end;
   background-color: green;
+}
+
+
+@media screen and (max-width: 675px){
+  .container2 > div{
+    height: 10px;
+  }
+  .container3{
+    display: flex;
+    height: 200px;
+    align-items: baseline;
+    flex-direction: column;
+  }
 }
