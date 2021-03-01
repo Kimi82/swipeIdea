@@ -46,12 +46,22 @@ export default function Chat({idea, user}) {
         chatScrollToBottom()
     }, [messages])
 
-      console.log(user)
+
     const chatScrollToBottom = () =>{
         var element = document.getElementById("chat__messageWrapper");
         element.scrollTop = element.scrollHeight;
-        console.log('%c SCROLL_BOTTOM ', 'background: #222; color: #bada55');
+
     }
+
+    function convertTime(time){
+        try{
+        var ideaDate = new Date(time); 
+        ideaDate.toLocaleString();
+        var time = ideaDate.toISOString().substring(0, 10);
+        }catch(error){console.log(error)}
+        return time;
+      }
+
 
     return (
     <div id='chat_inner'>  
@@ -60,11 +70,15 @@ export default function Chat({idea, user}) {
         
      {messages && messages.map(msg => 
      
-         msg.createdBy==user?
-        <div className="chat__messageOutcome" key={msg.id}>{msg.messageValue}</div>
-         :
-        <div className="chat__messageIncome" key={msg.id}>{msg.messageValue}</div>
+        //  msg.createdBy==user?
+        // <div className="chat__messageOutcome" key={msg.id}>{msg.messageValue}</div>
+        //  :
+        // <div className="chat__messageIncome" key={msg.id}>{msg.messageValue}</div>
         
+          msg.createdBy==user?
+         <div className="chat__messageOutcome" key={msg.id}>{convertTime(msg.timestamp?.seconds*1000)}</div>
+          :
+         <div className="chat__messageIncome" key={msg.id}>{msg.messageValue}</div>
     
      
      )} 
