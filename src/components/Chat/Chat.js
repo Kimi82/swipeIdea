@@ -76,7 +76,9 @@ export default function Chat({idea, user}) {
         // <div className="chat__messageIncome" key={msg.id}>{msg.messageValue}</div>
         
           msg.createdBy==user?
-         <div className="chat__messageOutcome" key={msg.id}>{convertTime(msg.timestamp?.seconds*1000)}</div>
+         <div className="chat__messageOutcome" key={msg.id}>{msg.messageValue}
+         <p className="chat__messageTime">{convertTime(msg.timestamp?.seconds*1000)}</p>
+         </div>
           :
          <div className="chat__messageIncome" key={msg.id}>{msg.messageValue}</div>
     
