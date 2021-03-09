@@ -50,6 +50,7 @@ function App() {
   useEffect(() => {
     const getUser = async () =>{
       await auth.onAuthStateChanged(( authUser ) =>{
+        
         setUser(authUser);
       });
     } 
@@ -63,12 +64,12 @@ function App() {
     try{
     await auth.createUserWithEmailAndPassword(email, password)
     setOpen(false)
-    window.location.reload();
-    return await auth.currentUser.updateProfile({
+    
+    await auth.currentUser.updateProfile({
       displayName: username
     
     })
-    
+    window.location.reload();
      }
     catch(error){
       alert(error.message)
@@ -160,7 +161,11 @@ function App() {
       :
       <CircularProgress/>
       }
+      {user ? 
       <Main user={user}/>
+      :
+      <CircularProgress />
+     }
       { user ?
       <YourIdeas user={user}/>
       :

@@ -14,7 +14,7 @@ const [randomIdea, setRandomIdea] = useState({})
 
         useEffect(() => {
             const getIdeas = async () =>{
-              let ideas = await db.collection("ideas").get(); //.where("createdBy", "!=", user.displayName)
+                let ideas = await db.collection("ideas").where("createdBy", "!=", user.displayName).get(); 
                 
                 setIdeas(ideas.docs.map( idea => ({
                 ...idea.data(),

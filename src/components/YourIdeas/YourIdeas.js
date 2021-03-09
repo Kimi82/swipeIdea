@@ -45,7 +45,7 @@ export default function YourIdeas( {user} ) {
     const [addFormValidation, setAddFormValidation] = useState(false);
     const [yourIdeas, setYourIdeas] = useState([])
     const [isDone, setIsDone] = useState(false)
-    const [yourChats, setYourChats] = useState([])
+    const [messages, setMessages] = useState([])
 
       const addIdea = async (e) =>{
         e.preventDefault();
@@ -68,6 +68,16 @@ export default function YourIdeas( {user} ) {
         }
         
       }
+
+
+      
+        const getMessages = async (idea) =>{
+ 
+          const test =  await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection("kimi").get() 
+          console.log(test.docs[1].data())
+          
+          };
+        // console.log(messages)
 
     
       useEffect(() => {
@@ -126,7 +136,7 @@ export default function YourIdeas( {user} ) {
             <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id}>
+                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id} onClick={ () => getMessages(idea)}>
                       <h3 id={idea?.id + "1"} >{idea?.ideaName}</h3>
                       <h3 id={idea?.id + "2"}>{idea?.convertTime}</h3>
                   </p>
