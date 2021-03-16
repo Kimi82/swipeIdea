@@ -73,10 +73,12 @@ export default function YourIdeas( {user} ) {
       
         const getMessages = async (idea) =>{
  
-          const test =  await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection("kimi").get() 
-          console.log(test.docs[1].data())
           
-          };
+          const test =  await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection(idea.whoLiked[0])
+          .get()
+         // console.log(test.docs.map())  
+          test?.docs.map(console.log("XD"))
+        };
         // console.log(messages)
 
     
@@ -99,22 +101,7 @@ export default function YourIdeas( {user} ) {
       }, [])
 
 
-      useEffect(() => {
-        const getChat = async () =>{
-            for(let i=0; i<=yourIdeas.length-1; i++){ 
-              await db.collection("chat").doc(user.displayName + yourIdeas[i].ideaName + user.displayName).collection(user.displayName).onSnapshot(snapshot =>{
-              const helperArray = [];
-              snapshot.forEach(doc => helperArray.push({...doc.data()}))
-               //setYourChats(helperArray)
-               yourIdeas[i]["chat"].push(helperArray)
-               console.log("poszlo")
-               console.log(yourIdeas[0]["chat"])
-          })
-          }}
-        
-         
-        getChat()
-      }, [isDone])
+
 
       
     

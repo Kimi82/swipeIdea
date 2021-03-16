@@ -40,11 +40,18 @@ const [randomIdea, setRandomIdea] = useState({})
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             
         })
+        updateArray()
         
          setDone(!done)
         
      }
 
+     const updateArray = () => {
+        db.collection("ideas").doc(randomIdea.ideaName + randomIdea.createdBy)  
+        .update( {
+          whoLiked: firebase.firestore.FieldValue.arrayUnion(user.displayName)
+       });
+     }
    
     return (
         <div className="main__wrapper">

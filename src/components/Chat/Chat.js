@@ -30,7 +30,7 @@ export default function Chat({idea, user}) {
     getMessage();
     chatScrollToBottom()
     }, [])
-    console.log(messages)
+    
 
 
     // useEffect(() => {
@@ -98,3 +98,5 @@ export default function Chat({idea, user}) {
   
     )
 }
+
+
