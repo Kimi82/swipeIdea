@@ -70,18 +70,25 @@ export default function YourIdeas( {user} ) {
       }
 
 
-      
+      //wjebac to w useEffect
         const getMessages = async (idea) =>{
- 
           
-          const test =  await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection(idea.whoLiked[0])
-          .get()
-         // console.log(test.docs.map())  
-          test?.docs.map(console.log("XD"))
-        };
-        // console.log(messages)
+        var i=0;
+        var allMessages = [];
+        while(i<idea.whoLiked.length){  
+          await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy)
+          .collection(idea.whoLiked[i]).onSnapshot(snapshot => {
+            
+            snapshot.docs.map(docs => {allMessages.push(docs.data())})
+            setMessages(allMessages)
+          })
 
-    
+           i++;   
+        }
+
+         };
+
+
       useEffect(() => {
         const getYourIdeas = async () =>{
           
