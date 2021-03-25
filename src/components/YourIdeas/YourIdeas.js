@@ -68,26 +68,47 @@ export default function YourIdeas( {user} ) {
         }
         
       }
-
-
-      //wjebac to w useEffect
-        const getMessages = async (idea) =>{
-          
+      useEffect(()=>{
+        
+        const getMessages = () =>{
+        
         var i=0;
         var allMessages = [];
-        while(i<idea.whoLiked.length){  
+        yourIdeas.map(async (idea) =>{   
+        while(i<idea.whoLiked.length){ 
           await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy)
           .collection(idea.whoLiked[i]).onSnapshot(snapshot => {
-            
             snapshot.docs.map(docs => {allMessages.push(docs.data())})
             setMessages(allMessages)
           })
 
            i++;   
-        }
-
+        }})
+        //addMessagesObjectToIdeas();
          };
+         getMessages()
+         
+        },[])
 
+        //console.log(yourIdeas)
+  useEffect(() => {
+        var addMessagesObjectToIdeas = () => {
+          console.log(messages.length)
+          messages.forEach((message, index) => {
+          const idea = yourIdeas[index];
+          console.log(idea?.ideaName === message.ideaName)
+          if(idea?.ideaName === message.ideaName){
+            console.log("idea?.chat")
+            idea.chat.push(message)
+          }
+
+          });
+          
+        }
+        addMessagesObjectToIdeas();
+      },[messages])
+
+        
 
       useEffect(() => {
         const getYourIdeas = async () =>{
@@ -130,8 +151,8 @@ export default function YourIdeas( {user} ) {
             <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id} onClick={ () => getMessages(idea)}>
-                      <h3 id={idea?.id + "1"} >{idea?.ideaName}</h3>
+                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id}>
+                      <h3 id={idea?.id + "1"} >{idea?.chat.length +" "+ idea?.ideaName}</h3>
                       <h3 id={idea?.id + "2"}>{idea?.convertTime}</h3>
                   </p>
                   
