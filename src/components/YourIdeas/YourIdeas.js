@@ -68,71 +68,73 @@ export default function YourIdeas( {user} ) {
         }
         
       }
+      
+        
+      
       useEffect(()=>{
-        
-        const getMessages = () =>{
-        
+      var getAllMessages = () => {
+        console.log(messages)
+        console.log("pobieram wszystkie wiadomosci")
         var i=0;
         var allMessages = [];
-        yourIdeas.map(async (idea) =>{   
-        while(i<idea.whoLiked.length){ 
-          await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy)
-          .collection(idea.whoLiked[i]).onSnapshot(snapshot => {
-            snapshot.docs.map(docs => {allMessages.push(docs.data())})
+        yourIdeas.forEach(async (idea) =>{   
+        while(i<idea?.whoLiked?.length){ 
+          await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection(idea.whoLiked[i])
+          .onSnapshot(snapshot => {
+            snapshot.docs.forEach(docs => {allMessages.push(docs.data())})
             setMessages(allMessages)
+            console.log(messages)
           })
-
            i++;   
         }})
-        //addMessagesObjectToIdeas();
-         };
-         getMessages()
-         
-        },[])
+       } 
+       getAllMessages()
+      },[isDone])
+       
 
-        //console.log(yourIdeas)
-  useEffect(() => {
-        var addMessagesObjectToIdeas = () => {
+        
+        
+// TODO poprawic pobieranie wiadomosci na async  
+
+  const mapMessagesToIdea = () => {
           console.log(messages.length)
           messages.forEach((message, index) => {
           const idea = yourIdeas[index];
           console.log(idea?.ideaName === message.ideaName)
           if(idea?.ideaName === message.ideaName){
-            console.log("idea?.chat")
             idea.chat.push(message)
+            
           }
 
           });
+        }
+
+        const testFunctionToClick = () => {
+          console.log("test")
+          
           
         }
-        addMessagesObjectToIdeas();
-      },[messages])
-
-        
+       
 
       useEffect(() => {
         const getYourIdeas = async () =>{
-          
+         
           //if(user?.displayName !== "undefined" && user ){
 //dodac where zeby nie pobieralo dodanych przez nas
             await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
               const helperArray = [];
               snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000), chat: []}))
               setYourIdeas(helperArray)
+                 
           })
-          setIsDone(true)
+          
         //}
         }
-        console.log("I just downloaded your ideas") 
-        getYourIdeas()
+        getYourIdeas();
 
+        
       }, [])
 
-
-
-
-      
-    
     function convertTime(time){
       try{
       var ideaDate = new Date(time); 
@@ -141,17 +143,18 @@ export default function YourIdeas( {user} ) {
       }catch(error){console.log(error)}
       return time;
     }
+
     return (
         <div className="yourideas__wrapper">
             <div className="yourIdeas__header">
-                <h3>here you can see your ideas and add new</h3>
+                <h3 onClick={()=>{testFunctionToClick()}}>here you can see your ideas and add new</h3>
                 <PlusCircle size={32} color="white" weight="fill" onClick={() => setOpen(true)} />
                 </div>
             <div className="yourIdeas__buttons">
             <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id}>
+                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id} onClick={()=>{testFunctionToClick()}}>
                       <h3 id={idea?.id + "1"} >{idea?.chat.length +" "+ idea?.ideaName}</h3>
                       <h3 id={idea?.id + "2"}>{idea?.convertTime}</h3>
                   </p>
