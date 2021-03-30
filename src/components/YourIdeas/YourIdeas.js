@@ -6,7 +6,7 @@ import Modal from '@material-ui/core/Modal';
 import { TextField, Button } from '@material-ui/core'
 import { db } from '../../firebase.js'
 import firebase from "firebase"
-
+import Chat from '../Chat/Chat.js'
 
 function getModalStyle() {
     const top = 50;
@@ -44,8 +44,9 @@ export default function YourIdeas( {user} ) {
     const [ideaDescription, setIdeaDescription] = useState('')
     const [addFormValidation, setAddFormValidation] = useState(false);
     const [yourIdeas, setYourIdeas] = useState([])
-    const [isDone, setIsDone] = useState(false)
     const [messages, setMessages] = useState([])
+    const [showChat, setShowChat] = useState(false)
+    const [ideaToSent, setIdeaToSent] = useState({})
 
       const addIdea = async (e) =>{
         e.preventDefault();
@@ -71,61 +72,57 @@ export default function YourIdeas( {user} ) {
       
         
       
-      useEffect(()=>{
+       useEffect(()=>{
       var getAllMessages = () => {
-        console.log(messages)
         console.log("pobieram wszystkie wiadomosci")
-        var i=0;
-        var allMessages = [];
-        yourIdeas.forEach(async (idea) =>{   
-        while(i<idea?.whoLiked?.length){ 
-          await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection(idea.whoLiked[i])
-          .onSnapshot(snapshot => {
-            snapshot.docs.forEach(docs => {allMessages.push(docs.data())})
+        const allMessages = []
+        yourIdeas.forEach(async (idea, index) =>{
+          if(idea.whoLiked){
+          await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection(idea.whoLiked[index])
+          .onSnapshot(snapshot =>{
+            snapshot.docs.map(message =>{
+              allMessages.push(message.data())
+              
+            })
             setMessages(allMessages)
-            console.log(messages)
-          })
-           i++;   
-        }})
-       } 
+          }) 
+          
+      }})
+      
+    }   
        getAllMessages()
-      },[isDone])
+       
+      },[yourIdeas])
        
 
         
+  useEffect(()=>{        
+        yourIdeas.forEach((idea)=> {
+          messages.forEach((message)=>{
+            if(idea?.ideaName === message?.ideaName){
+              idea.chat.push(message)
+            }
+          })
+        })
+    },[messages])
+
+
+
+        const openChat = (idea) => {
+            console.log(idea)
+            setShowChat(!showChat)
         
-// TODO poprawic pobieranie wiadomosci na async  
-
-  const mapMessagesToIdea = () => {
-          console.log(messages.length)
-          messages.forEach((message, index) => {
-          const idea = yourIdeas[index];
-          console.log(idea?.ideaName === message.ideaName)
-          if(idea?.ideaName === message.ideaName){
-            idea.chat.push(message)
-            
-          }
-
-          });
-        }
-
-        const testFunctionToClick = () => {
-          console.log("test")
-          
-          
         }
        
 
       useEffect(() => {
         const getYourIdeas = async () =>{
-         
           //if(user?.displayName !== "undefined" && user ){
 //dodac where zeby nie pobieralo dodanych przez nas
             await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
               const helperArray = [];
               snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000), chat: []}))
               setYourIdeas(helperArray)
-                 
           })
           
         //}
@@ -147,19 +144,20 @@ export default function YourIdeas( {user} ) {
     return (
         <div className="yourideas__wrapper">
             <div className="yourIdeas__header">
-                <h3 onClick={()=>{testFunctionToClick()}}>here you can see your ideas and add new</h3>
+                <h3>here you can see your ideas and add new</h3>
                 <PlusCircle size={32} color="white" weight="fill" onClick={() => setOpen(true)} />
                 </div>
             <div className="yourIdeas__buttons">
             <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id} onClick={()=>{testFunctionToClick()}}>
+                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id} onClick={()=>{openChat(idea)}}>
                       <h3 id={idea?.id + "1"} >{idea?.chat.length +" "+ idea?.ideaName}</h3>
                       <h3 id={idea?.id + "2"}>{idea?.convertTime}</h3>
                   </p>
                   
                 )}
+
                 </div> 
               
                 <Modal
@@ -188,7 +186,10 @@ export default function YourIdeas( {user} ) {
      }
 
   </Modal> 
-
+ 
+ 
+  {showChat ? <Chat idea={ideaToSent} user={user.displayName}/> : null}
+ 
         </div>
         </div>
     )

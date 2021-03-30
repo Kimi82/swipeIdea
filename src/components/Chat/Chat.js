@@ -14,7 +14,7 @@ export default function Chat({idea, user}) {
                 createdBy: user,
                 messageValue,
                 ideaName: idea.ideaName,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             })
             e.preventDefault();
             setMessageValue("")
