@@ -9,8 +9,10 @@ export default function Chat({idea, user}) {
     const [messageValue, setMessageValue] = useState('')
     const [messages, setMessages] = useState([])
     
+console.log(idea)
+
     const sendMessage = (e) =>{
-            db.collection("chat").doc(idea.createdBy + idea.id).collection(user).add({
+            db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).add({
                 createdBy: user,
                 messageValue,
                 ideaName: idea.ideaName,
@@ -23,7 +25,7 @@ export default function Chat({idea, user}) {
 
     useEffect(()=>{
     const getMessage = async () =>{
-        await db.collection("chat").doc(idea.createdBy + idea.id).collection(user).orderBy("timestamp").onSnapshot((snapshot) =>{
+        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).orderBy("timestamp").onSnapshot((snapshot) =>{
             setMessages(snapshot.docs.map((doc) => doc.data()));
 
         })};
@@ -85,18 +87,16 @@ export default function Chat({idea, user}) {
      
      )} 
     </div>
-    <form onSubmit={sendMessage}> 
+    {/* <form onSubmit={sendMessage}>  */}
     <div className="chat__inputWrapper">
  
         <input className="chat__input" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}/>
         <button type="submit" className="chat__button" onClick={sendMessage} >Send</button>
         
     </div>
-    </form>  
+    {/* </form>   */}
     </div>
 
   
     )
 }
-
-

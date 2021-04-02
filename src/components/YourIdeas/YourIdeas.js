@@ -70,7 +70,7 @@ export default function YourIdeas( {user} ) {
         
       }
       
-        
+      
       
        useEffect(()=>{
       var getAllMessages = () => {
@@ -109,9 +109,11 @@ export default function YourIdeas( {user} ) {
 
 
         const openChat = (idea) => {
+            const ideaId = idea.ideaName + idea.createdBy;
+            idea.id = ideaId
             console.log(idea)
             setShowChat(!showChat)
-        
+            setIdeaToSent(idea)
         }
        
 

@@ -15,7 +15,6 @@ const [randomIdea, setRandomIdea] = useState({})
         useEffect(() => {
             const getIdeas = async () =>{
                 let ideas = await db.collection("ideas").where("createdBy", "!=", user.displayName).get(); 
-                
                 setIdeas(ideas.docs.map( idea => ({
                 ...idea.data(),
                 id: idea.id    
@@ -47,7 +46,8 @@ const [randomIdea, setRandomIdea] = useState({})
      }
 
      const updateArray = () => {
-        db.collection("ideas").doc(randomIdea.ideaName + randomIdea.createdBy)  
+         console.log("AKTUALIZUJE !!!!!!!")
+        db.collection("ideas").doc(randomIdea.ideaName.replace(/\s/g, '') + randomIdea.createdBy)  
         .update( {
           whoLiked: firebase.firestore.FieldValue.arrayUnion(user.displayName)
        });
