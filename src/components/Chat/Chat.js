@@ -9,7 +9,7 @@ export default function Chat({idea, user}) {
     const [messageValue, setMessageValue] = useState('')
     const [messages, setMessages] = useState([])
     
-console.log(idea)
+    
 
     const sendMessage = (e) =>{
             db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).add({
@@ -24,14 +24,25 @@ console.log(idea)
     }
 
     useEffect(()=>{
-    const getMessage = async () =>{
-        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).orderBy("timestamp").onSnapshot((snapshot) =>{
-            setMessages(snapshot.docs.map((doc) => doc.data()));
+    const getMessage = () =>{
+        const allMessages = []
+        idea?.whoLiked.map(async(userThanLikedPost)=>{
+        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(userThanLikedPost).orderBy("timestamp").onSnapshot((snapshot) =>{
+            const helperVariable = snapshot.docs.map((doc) =>  doc.data())
+            
+            helperVariable.map((message)=>{
+              
+            allMessages.push(message)})
 
+        })
+        //setMessages(allMessages)
         })};
+        
     getMessage();
     chatScrollToBottom()
     }, [])
+    
+    
     
 
 

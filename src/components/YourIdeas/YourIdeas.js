@@ -59,6 +59,7 @@ export default function YourIdeas( {user} ) {
              ideaDescription,
              ideaImageURL,
              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+             whoLiked: firebase.firestore.FieldValue.arrayUnion(user.displayName)
              })
 
           setAddFormValidation(false)
@@ -111,7 +112,6 @@ export default function YourIdeas( {user} ) {
         const openChat = (idea) => {
             const ideaId = idea.ideaName + idea.createdBy;
             idea.id = ideaId
-            console.log(idea)
             setShowChat(!showChat)
             setIdeaToSent(idea)
         }
