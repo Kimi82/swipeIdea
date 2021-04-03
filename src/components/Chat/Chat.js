@@ -8,7 +8,7 @@ export default function Chat({idea, user}) {
     
     const [messageValue, setMessageValue] = useState('')
     const [messages, setMessages] = useState([])
-    
+    const [test, setTest] = useState(false)
     
 
     const sendMessage = (e) =>{
@@ -24,20 +24,23 @@ export default function Chat({idea, user}) {
     }
 
     useEffect(()=>{
-    const getMessage = () =>{
+    const getMessage = async () =>{
         const allMessages = []
-        idea?.whoLiked.map(async(userThanLikedPost)=>{
-        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(userThanLikedPost).orderBy("timestamp").onSnapshot((snapshot) =>{
+        //idea?.whoLiked.map(async(userThanLikedPost)=>{
+        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).orderBy("timestamp").onSnapshot((snapshot) =>{
             const helperVariable = snapshot.docs.map((doc) =>  doc.data())
-            
-            helperVariable.map((message)=>{
-              
-            allMessages.push(message)})
-
+            console.log(helperVariable)
+            helperVariable.map((message)=>{    
+            allMessages.push(message)
+            console.log(allMessages)
         })
-        //setMessages(allMessages)
-        })};
         
+        })
+        console.log("zaraz dodam state")
+        setMessages(allMessages)
+        }
+        //)};
+    setMessages([]) // TODO test       
     getMessage();
     chatScrollToBottom()
     }, [])
