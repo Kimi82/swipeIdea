@@ -22,41 +22,24 @@ export default function Chat({idea, user}) {
             setMessageValue("")
             chatScrollToBottom()            
     }
-
-    useEffect(()=>{
-    const getMessage = async () =>{
+    useEffect (()=>{
+     const getMessage = async () =>{
         const allMessages = []
         //idea?.whoLiked.map(async(userThanLikedPost)=>{
         await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).orderBy("timestamp").onSnapshot((snapshot) =>{
             const helperVariable = snapshot.docs.map((doc) =>  doc.data())
-            console.log(helperVariable)
-            helperVariable.map((message)=>{    
-            allMessages.push(message)
-            console.log(allMessages)
+            setMessages(helperVariable)
         })
+        console.log(messages)
         
-        })
-        console.log("zaraz dodam state")
-        setMessages(allMessages)
         }
         //)};
-    setMessages([]) // TODO test       
+     
     getMessage();
-    chatScrollToBottom()
-    }, [])
-    
-    
+    chatScrollToBottom()  //TODO IMPORTNAT FUNC
+    },[])
     
 
-
-    // useEffect(() => {
-    //     const getIdeas = async () =>{
-    //       let ideas = await db.collection("ideas").get(); //.where("createdBy", "!=", user.displayName)       
-    //     }
-
-    //     getIdeas()
-        
-    //   }, [])
 
     useEffect (() => {
         chatScrollToBottom()
@@ -101,14 +84,14 @@ export default function Chat({idea, user}) {
      
      )} 
     </div>
-    {/* <form onSubmit={sendMessage}>  */}
+    { <form onSubmit={sendMessage}>  
     <div className="chat__inputWrapper">
  
         <input className="chat__input" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}/>
         <button type="submit" className="chat__button" onClick={sendMessage} >Send</button>
         
     </div>
-    {/* </form>   */}
+    </form>   }
     </div>
 
   
