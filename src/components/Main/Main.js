@@ -51,6 +51,10 @@ const [randomIdea, setRandomIdea] = useState({})
         .update( {
           whoLiked: firebase.firestore.FieldValue.arrayUnion(user.displayName)
        });
+       db.collection(user.displayName).doc("additionalInfo").collection("likedIdeas").doc(randomIdea.ideaName.replace(/\s/g, '') + randomIdea.createdBy)  
+       .update( {
+         whoLiked: firebase.firestore.FieldValue.arrayUnion(user.displayName)
+      });
      }
    
     return (

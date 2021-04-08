@@ -25,12 +25,17 @@ export default function Chat({idea, user}) {
     useEffect (()=>{
      const getMessage = async () =>{
         const allMessages = []
-        //idea?.whoLiked.map(async(userThanLikedPost)=>{
-        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(user).orderBy("timestamp").onSnapshot((snapshot) =>{
-            const helperVariable = snapshot.docs.map((doc) =>  doc.data())
-            setMessages(helperVariable)
+        //idea?.whoLiked.map(async(userThanLikedPost)=>{    
+        idea?.whoLiked.map(async(userThanLikedPost)=>{
+        await db.collection("chat").doc(idea.createdBy + idea.id.replace(/\s/g, '')).collection(userThanLikedPost).orderBy("timestamp").onSnapshot((snapshot) =>{
+         
+         const helperVariable = snapshot.docs.map((doc) =>  doc.data())
+         setMessages(helperVariable)
+         console.log(helperVariable)
         })
-        console.log(messages)
+        
+        })
+        
         
         }
         //)};

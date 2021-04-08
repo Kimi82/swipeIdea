@@ -19,8 +19,7 @@ export default function LeftPanel({user}) {
                 const helperArray = [];
                 snapshot.forEach(doc => helperArray.push({...doc.data()}))
                 setLikeIdea(helperArray)
-                
-            })
+                })
             
             
         }
@@ -28,13 +27,6 @@ export default function LeftPanel({user}) {
         
 
 }, [])
-
-
-
-    
-
-    
-
 
 
     return (
