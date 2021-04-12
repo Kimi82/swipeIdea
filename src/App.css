@@ -37,7 +37,5 @@
 }
 .app_headerTitle{
   margin-top:0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  align-self: center; 
 }
