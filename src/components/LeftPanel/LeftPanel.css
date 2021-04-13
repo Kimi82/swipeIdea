@@ -2,6 +2,9 @@
     background-color: #5AB9EA;
     width: 25%;
     height: 90vh;
+    display: flex;
+    flex-direction: column;
+
 }
 .menu__header{
     text-align: center;
@@ -9,5 +12,6 @@
 
 .menu__ideaItem{
     text-decoration: none; 
-    padding: 10px;
+    padding: 10px 20px 10px;
+    
 }

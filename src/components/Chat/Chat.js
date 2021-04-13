@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react'
 import './Chat.css'
 import { db } from '../../firebase.js'
 import firebase from "firebase"
-
+import CloseIcon from '@material-ui/icons';
 
 export default function Chat({idea, user}) {
     
     const [messageValue, setMessageValue] = useState('')
     const [messages, setMessages] = useState([])
-
+    const [disabled, setDisabled] = useState(false)
     
     const sendMessage = (e) =>{
              db.collection("chat").doc(idea.createdBy.replace(/\s/g, '') + idea.ideaName.replace(/\s/g, '')).collection("chad").add({
@@ -57,8 +57,10 @@ export default function Chat({idea, user}) {
 
 
     return (
+    <div style={disabled ? {display: "none"} : {}}>
     <div id='chat_inner'>  
     <h1>Chat about: {idea.ideaName} by {idea.createdBy}</h1>
+    <CloseIcon onClick={()=> setDisabled(true)}/>
     <div id="chat__messageWrapper">
         
      {messages && messages.map(msg => 
@@ -92,6 +94,6 @@ export default function Chat({idea, user}) {
     }
     </div>
 
-  
+    </div>
     )
 }

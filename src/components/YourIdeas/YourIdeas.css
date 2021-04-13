@@ -2,6 +2,8 @@
     background-color: #5AB9EA;
     width: 25%;
     height: 90vh;
+    display: flex;
+    flex-direction: column;
 }
 .yourIdeas__buttons{
     display: flex;
