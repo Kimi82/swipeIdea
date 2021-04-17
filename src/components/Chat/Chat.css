@@ -9,7 +9,7 @@
     height:100%;
     top:0;     
     left:25%;
-    background: red;
+    background: #41819b;
     width: 50%;
     border-radius: 25px;
 }
@@ -87,4 +87,12 @@
   /* position: relative; */
   display: flex;
   flex-direction: column;
+  }
+
+  .chat__header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
   }

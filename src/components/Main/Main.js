@@ -59,27 +59,33 @@ const [randomIdea, setRandomIdea] = useState({})
    
     return (
         <div className="main__wrapper">
-            <div className="main__header">
-                <div className="main__headerLeft">
-                    <h3>Name of idea: {randomIdea?.ideaName}</h3>
-                    <h3>Author: {randomIdea?.createdBy}</h3>
-                </div>
-                {/* <h4 className="main__headerCounter">counter</h4>   */}
-            </div>
-             <div className="main__content">{randomIdea?.ideaDescription}
-             <div className="main__contentPhotoButton">
-             {randomIdea?.ideaImageURL && randomIdea?.ideaImageURL !== "undefined" ?
-             <img src={randomIdea?.ideaImageURL} alt="new"/>
-             :
-             <CameraSlash size={52} color="white" weight="fill" />
-             }
-             </div> 
-             </div>
-            <div className="main__footer">
-                <PlusCircle size={48} color="white" weight="fill" onClick={likeIdeas} />
-                <MinusCircle size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}}/>
-                <SkipForward size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}}/>
-            </div> 
-        </div>
+<div className="main__header">
+    <div className="main__headerLeft">
+        <h3>Name of idea: {randomIdea?.ideaName}</h3>
+        <h3>Author: {randomIdea?.createdBy}</h3>
+    </div>
+    { <h4 className="main__headerCounter">counter</h4>   }
+</div>
+ <div className="main__content">{randomIdea?.ideaDescription}
+ <div className="main__contentPhotoButton">
+ {randomIdea?.ideaImageURL && randomIdea?.ideaImageURL !== "undefined" ?
+ <img src={randomIdea?.ideaImageURL} alt="new"/>
+ :
+ <CameraSlash size={52} color="white" weight="fill" />
+ }
+ </div> 
+ </div>
+<div className="main__footer">
+    <PlusCircle size={48} color="white" weight="fill" onClick={likeIdeas} />
+    <MinusCircle size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}}/>
+    <SkipForward size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}}/>
+</div> 
+</div> 
     )
 }
+
+
+
+
+
+

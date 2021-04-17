@@ -159,17 +159,19 @@ function App() {
       
       {user ? <LeftPanel user={user}/>
       :
-      <CircularProgress/>
+      null
       }
       {user ? 
       <Main user={user}/>
       :
-      <CircularProgress />
+      <div className="test">
+       To use this app you need to login 
+      </div>
      }
       { user ?
       <YourIdeas user={user}/>
       :
-      <CircularProgress />
+      null
       }
       </div>
     </div>

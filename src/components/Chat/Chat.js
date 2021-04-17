@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import './Chat.css'
 import { db } from '../../firebase.js'
 import firebase from "firebase"
-import CloseIcon from '@material-ui/icons';
+import CloseIcon from '@material-ui/icons/Close';
 
 export default function Chat({idea, user}) {
     
@@ -58,9 +58,11 @@ export default function Chat({idea, user}) {
 
     return (
     <div style={disabled ? {display: "none"} : {}}>
-    <div id='chat_inner'>  
-    <h1>Chat about: {idea.ideaName} by {idea.createdBy}</h1>
-    <CloseIcon onClick={()=> setDisabled(true)}/>
+    <div id='chat_inner'>
+      <div className="chat__header">
+        <h1>Chat about: {idea.ideaName} by {idea.createdBy}</h1>
+        <CloseIcon onClick={()=> setDisabled(true)}/>
+      </div>
     <div id="chat__messageWrapper">
         
      {messages && messages.map(msg => 
