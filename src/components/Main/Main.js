@@ -64,12 +64,12 @@ const [randomIdea, setRandomIdea] = useState({})
         <h3>Name of idea: {randomIdea?.ideaName}</h3>
         <h3>Author: {randomIdea?.createdBy}</h3>
     </div>
-    { <h4 className="main__headerCounter">counter</h4>   }
+    {/* { <h4 className="main__headerCounter">counter</h4>   } */}
 </div>
  <div className="main__content">{randomIdea?.ideaDescription}
  <div className="main__contentPhotoButton">
  {randomIdea?.ideaImageURL && randomIdea?.ideaImageURL !== "undefined" ?
- <img src={randomIdea?.ideaImageURL} alt="new"/>
+ <img className="main__contentPhoto" src={randomIdea?.ideaImageURL} alt="new"/>
  :
  <CameraSlash size={52} color="white" weight="fill" />
  }

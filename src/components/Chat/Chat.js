@@ -89,7 +89,7 @@ export default function Chat({idea, user}) {
     <div className="chat__inputWrapper">
  
         <input className="chat__input" onChange={(e) => setMessageValue(e.target.value)} value={messageValue}/>
-        <button type="submit" className="chat__button" onClick={sendMessage} >Send</button>
+        <button type="submit" className="chat__button" onClick={sendMessage}>Send</button>
 
     </div>
     </form>   

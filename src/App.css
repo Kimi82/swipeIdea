@@ -1,5 +1,7 @@
 *{
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .App{
@@ -26,21 +28,24 @@
 .app__header{
   background-color: #84CEEB;
   text-align: center;
-  height: 40%;
+  height: 10vh;
+  width:100vw;
+  position: relative;
+  
 }
 .app__headerRight{
   background-color: #84CEEB;
   display: flex;
   justify-content: flex-end;
-  margin-right: 30px;
 }
 .app__headerRegister{
   margin: 15px;
 
 }
 .app_headerTitle{
-  margin-top:0;
-  align-self: center; 
+  margin: 0;
+  justify-content: center;
+  align-items: center;
 }
 
 .test{

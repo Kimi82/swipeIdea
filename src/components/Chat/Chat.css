@@ -1,98 +1,103 @@
- *{
-   box-sizing: border-box;
- }
-  #chat_inner {  
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;  
-    height:100%;
-    top:0;     
-    left:25%;
-    background: #41819b;
-    width: 50%;
-    border-radius: 25px;
+*{
+  box-sizing: border-box;
+}
+ #chat_inner {  
+   position: absolute;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;  
+   height:100%;
+   top:0;     
+   left:25%;
+   background: #41819b;
+   width: 50%;
+   border-radius: 25px;
+   
 }
 
-  .chat__inputWrapper{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-top:10px;
-    margin-bottom: 10px;
-    margin-left: 10%;
-  }  
-  .chat__input{
-    width: 80%;
-    height: 30px; 
-    border: none; 
-    border-radius: 10px;
-    text-decoration: none;
-    cursor: pointer;
-    
-  }
-  .chat__button{
-    position: relative;
-    left: -10%;
-    width: 10%;
-    height: 30px; 
-    border: none; 
-    border-radius: 10px;
-    background-color: lawngreen;
-    text-decoration: none;
-    cursor: pointer;
-  }
+ .chat__inputWrapper{
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   margin-top:10px;
+   margin-bottom: 0;
+   margin-left: 10%;
+ }  
+ .chat__input{
+   width: 80%;
+   height: 30px; 
+   border: none; 
+   border-radius: 10px;
+   text-decoration: none;
+   cursor: pointer;
+   
+ }
+ .chat__button{
+   position: relative;
+   left: -10%;
+   width: 15%;
+   height: 30px; 
+   border: none; 
+   border-radius: 10px;
+   background-color: lawngreen;
+   text-decoration: none;
+   cursor: pointer;
+ }
 
- #chat__messageWrapper{
-    display: flex;
-    flex-direction: column;
-    max-height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
+#chat__messageWrapper{
+   display: flex;
+   flex-direction: column;
+   height: 90vh;
+   max-height: 90vh;
+   /* align-items: flex-end; */
+   overflow-y: auto;
+   overflow-x: hidden;
+   
+ }
 
 .chat__messageIncome, .chat__messageOutcome{
-  margin:15px;
-  width: 15vw;
-  background-color: blue;
-  color: white;
-  border-radius: 10px;
-  padding: 5px;
-  word-wrap: break-word;
-  max-width: 50%;
+ margin:15px;
+ width: 15vw;
+ background-color: blue;
+ color: white;
+ border-radius: 10px;
+ padding: 5px;
+ word-wrap: break-word;
+ max-width: 50%;
 
 }
 
 .chat__messageOutcome{
-  align-self: flex-end;
-  background-color: green;
+ align-self: flex-end;
+ background-color: green;
 }
 
 
-@media screen and (max-width: 675px){
-  .container2 > div{
-    height: 10px;
-  }
-  .container3{
-    display: flex;
-    height: 200px;
-    align-items: baseline;
-    flex-direction: column;
-  }
-}
+
 
 .chat__messageTime{
-  font-size:10px;
-  padding:8px 0px 5px;
-  /* position: relative; */
-  display: flex;
-  flex-direction: column;
-  }
+ font-size:10px;
+ padding:8px 0px 5px;
+ /* position: relative; */
+ display: flex;
+ flex-direction: column;
+ }
 
+ .chat__header{
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+   align-items: center;
+   padding: 10px;
+   position: relative;
+   height: 10vh;
+ }
+
+ @media all and (max-width:900px){
+  .chat__button{
+  width:25%;
+}
   .chat__header{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+    visibility: hidden;
   }
+}

@@ -1,6 +1,6 @@
 .main__wrapper{
     background-color: #5680E9;
-    width: 50%;
+    width: 50vw;
     height: 90vh;
     display: flex;
     flex-direction: column;
@@ -37,4 +37,11 @@
 
 .main__headerCounter{
     margin-top:4%
+}
+
+.main__contentPhoto{
+    margin-left: 10%;
+    width: 80%;
+    weight: 100%;
+
 }
