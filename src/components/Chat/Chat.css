@@ -12,6 +12,7 @@
    background: #41819b;
    width: 50%;
    border-radius: 25px;
+   z-index: 100;
    
 }
 
@@ -91,6 +92,7 @@
    padding: 10px;
    position: relative;
    height: 10vh;
+
  }
 
  @media all and (max-width:900px){
@@ -98,6 +100,6 @@
   width:25%;
 }
   .chat__header{
-    visibility: hidden;
+    font-size: .5em;
   }
 }

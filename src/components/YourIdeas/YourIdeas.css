@@ -1,10 +1,10 @@
 .yourideas__wrapper{
     background-color: #5AB9EA;
     width: 25vw;
-    height: 90vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
-    padding-top: 30px;
+    padding-top: 30px;    
 }
 .yourIdeas__buttons{
     display: flex;
@@ -25,15 +25,22 @@
 .yourIdeas__listItem{
     display: flex;
     justify-content: space-between;
-    margin: 15px;
+    padding: 10px 10px 10px;
+}
+.yourIdeas__listItem p{
+    font-weight: 400;
 }
 
 @media all and (max-width:900px){
     .yourIdeas__listItem{
     justify-content: center;
     flex-direction: column;
-    color:red;
 }
+@media all and (max-width:400px){
+    .yourIdeas__header, .yourideas__listWrapper{
+    font-size: .8em;
+}}
+
     .yourIdeas__buttons{
         margin: 0;
         word-wrap: break-word;

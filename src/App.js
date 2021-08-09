@@ -89,7 +89,7 @@ function App() {
     <div className="App">
       <header className='app__header'>
       <h1 className="app_headerTitle">SwipeIdea - just judge ideas</h1>
-        <div className="app__headerRight">
+      <div className="app__headerRight">
     {user?.displayName ? 
     <Button onClick={() =>{
        auth.signOut();

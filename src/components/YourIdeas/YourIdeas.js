@@ -48,12 +48,12 @@ export default function YourIdeas( {user} ) {
     const [showChat, setShowChat] = useState(false)
     const [ideaToSent, setIdeaToSent] = useState({})
 
-      const addIdea = async (e) =>{
+      const addIdea = e =>{
         e.preventDefault();
         if(ideaName.length<=2 && ideaDescription.length<=10){
           setAddFormValidation(true)
         }else{
-          db.collection("ideas").doc(ideaName.replace(/\s/g, '')+user.displayName).set({
+           db.collection("ideas").doc(ideaName.replace(/\s/g, '')+user.displayName).set({
              createdBy: user.displayName,
              ideaName,
              ideaDescription,
@@ -73,13 +73,13 @@ export default function YourIdeas( {user} ) {
       
       
       
-       useEffect(()=>{
-      var getAllMessages = () => {
+      useEffect(()=>{
+        const getAllMessages = () => {
         console.log("pobieram wszystkie wiadomosci")
         const allMessages = []
         yourIdeas.forEach(async (idea, index) =>{
           if(idea.whoLiked){
-          await db.collection("chat").doc(idea.createdBy + idea.ideaName +idea.createdBy).collection(idea.whoLiked[index])
+          await db.collection("chat").doc(idea.createdBy + idea.ideaName + idea.createdBy).collection(idea.whoLiked[index])
           .onSnapshot(snapshot =>{
             snapshot.docs.map(message =>{
               allMessages.push(message.data())
@@ -97,7 +97,7 @@ export default function YourIdeas( {user} ) {
        
 
         
-  useEffect(()=>{        
+    useEffect(()=>{        
         yourIdeas.forEach((idea)=> {
           messages.forEach((message)=>{
             if(idea?.ideaName === message?.ideaName){
@@ -120,7 +120,7 @@ export default function YourIdeas( {user} ) {
       useEffect(() => {
         const getYourIdeas = async () =>{
           //if(user?.displayName !== "undefined" && user ){
-//dodac where zeby nie pobieralo dodanych przez nas
+          //dodac where zeby nie pobieralo dodanych przez nas
             await db.collection("ideas").where("createdBy", "==", user.displayName).onSnapshot(snapshot =>{
               const helperArray = [];
               snapshot.forEach(doc => helperArray.push({...doc.data(),convertTime: convertTime(doc.data()?.timestamp?.seconds*1000), chat: []}))
@@ -136,26 +136,27 @@ export default function YourIdeas( {user} ) {
 
     function convertTime(time){
       try{
-      var ideaDate = new Date(time); 
+      const ideaDate = new Date(time); 
       ideaDate.toLocaleString();
       var time = ideaDate.toISOString().substring(0, 10);
-      }catch(error){console.log(error)}
+      }
+      catch(error){console.log(error)}
       return time;
     }
 
     return (
         <div className="yourideas__wrapper">
             <div className="yourIdeas__header">
-                <h3>here you can see your ideas and add new</h3>
+            <h3>here you can see your ideas and add new</h3>
                 <PlusCircle size={32} color="white" weight="fill" onClick={() => setOpen(true)} />
                 </div>
             <div className="yourIdeas__buttons">
             <div className="yourideas__listWrapper">
               {yourIdeas.map((idea) =>
                   
-                  <p className="yourIdeas__listItem" id={idea?.id} key={idea?.id} onClick={()=>{openChat(idea)}}>
-                      <h3 id={idea?.id + "1"} >{idea?.ideaName}</h3>
-                      <h3 id={idea?.id + "2"}>{idea?.convertTime}</h3>
+                  <p className="yourIdeas__listItem" id={idea?.id} key={idea.id} onClick={()=>{openChat(idea)}}>
+                      <p  id={idea?.id + "1"} >{idea?.ideaName}</p>
+                      <p  id={idea?.id + "2"}>{idea?.convertTime}</p>
                   </p>
                   
                 )}

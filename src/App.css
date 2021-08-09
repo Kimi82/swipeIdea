@@ -15,46 +15,37 @@
   width: 100%;
 }
 
-.menu__wrapper{
-  
-}
-.main__wrapper{
-
-}
-.yourideas__wrapper{
-  
-}
-
 .app__header{
   background-color: #84CEEB;
-  text-align: center;
   height: 10vh;
   width:100vw;
   position: relative;
-  
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
 }
 .app__headerRight{
   background-color: #84CEEB;
-  display: flex;
-  justify-content: flex-end;
-}
-.app__headerRegister{
-  margin: 15px;
-
+  position: relative;
+  right:2%;
+  text-align: end;
+  
 }
 .app_headerTitle{
-  margin: 0;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  font-size: 2.5em;
+  text-align: center;
+  position: relative;
 }
 
-.test{
-  height: 90vh;
-  width: 100%;
-  background-color: #549ab6;
-  color: white;
-  font-size:32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
+
+@media all and (max-width:420px){
+  .app_headerTitle{
+  font-size: 1.5em;
+}}
+
+@media all and (max-width:420px){
+  .MuiButton-label{
+  font-size: 1em
+}}

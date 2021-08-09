@@ -3,7 +3,7 @@ import './Main.css';
 import { MinusCircle, PlusCircle, SkipForward, CameraSlash } from "phosphor-react";
 import { db } from '../../firebase.js'
 import firebase from "firebase"
-import Ideas from '../Ideas/Ideas.js'
+
 
 export default function Main( {user} ) {
 
@@ -28,10 +28,8 @@ const [randomIdea, setRandomIdea] = useState({})
           }, [])
         
         useEffect(() =>{
-        //const displayIdea = () => {
             const randomIdea = ideas[Math.floor(Math.random() * ideas.length)] //get random index of ideas array
             setRandomIdea(randomIdea)
-        //}
     }, [done])
      const likeIdeas = () => {
         db.collection(user.displayName).doc("additionalInfo").collection("likedIdeas").doc(randomIdea.id).set({
@@ -42,7 +40,7 @@ const [randomIdea, setRandomIdea] = useState({})
         updateArray()
         
          setDone(!done)
-        
+         setRandomIdea(null)
      }
 
      const updateArray = () => {
@@ -55,17 +53,16 @@ const [randomIdea, setRandomIdea] = useState({})
        .update( {
          whoLiked: firebase.firestore.FieldValue.arrayUnion(user.displayName)
       });
-     }
+     } 
    
     return (
-        <div className="main__wrapper">
-<div className="main__header">
-    <div className="main__headerLeft">
-        <h3>Name of idea: {randomIdea?.ideaName}</h3>
-        <h3>Author: {randomIdea?.createdBy}</h3>
-    </div>
+<div className="main__wrapper">
+    <div className="main__header">
+            <h3>Name of idea: {randomIdea?.ideaName}</h3>
+            <h3>Author: {randomIdea?.createdBy}</h3>
     {/* { <h4 className="main__headerCounter">counter</h4>   } */}
-</div>
+    </div>
+
  <div className="main__content">{randomIdea?.ideaDescription}
  <div className="main__contentPhotoButton">
  {randomIdea?.ideaImageURL && randomIdea?.ideaImageURL !== "undefined" ?
@@ -76,9 +73,13 @@ const [randomIdea, setRandomIdea] = useState({})
  </div> 
  </div>
 <div className="main__footer">
+    {randomIdea &&
+    <>
     <PlusCircle size={48} color="white" weight="fill" onClick={likeIdeas} />
     <MinusCircle size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}}/>
     <SkipForward size={48} color="white" weight="fill" onClick={()=>{setDone(!done)}}/>
+    </>
+    }
 </div> 
 </div> 
     )
