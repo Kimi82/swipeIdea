@@ -1,8 +1,13 @@
 # What is it?
 This website is a "Tinder for ideas". You can add your idea, and get feedback, or give it for another users.
 
-I hosted it, you can see it link below
+# If you want to test it...
+I hosted this site, you can see it link below
 https://swipeidea-5dbdf.web.app/
+Also, i created two account, with some data:
+1) email: satoshi@bitcoin.pl password: Satoshi
+2) email: elon@tesla.pl  password: Elon12
+of course, just if you want, you can create your own account! :)
 
 ## Technology i used
 React.JS, CSS, firebase, and a little bit of material-ui and phosphor-react
